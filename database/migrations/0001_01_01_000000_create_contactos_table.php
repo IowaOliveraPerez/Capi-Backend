@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('notas');
-            $table->string('fecha_cumpleaños');
+            $table->string('fecha_cumpleanios');
             $table->string('pagina_web');
             $table->string('empresa');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

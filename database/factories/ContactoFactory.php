@@ -17,7 +17,7 @@ class ContactoFactory extends Factory
         return [
             'nombre' => $this->faker->name,
             'notas' => $this->faker->sentence,
-            'fecha_cumpleaños' => $this->faker->date(),
+            'fecha_cumpleanios' => $this->faker->date(),
             'pagina_web' => $this->faker->url,
             'empresa' => $this->faker->company
         ];

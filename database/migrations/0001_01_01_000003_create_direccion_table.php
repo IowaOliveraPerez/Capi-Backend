@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_contacto');
             $table->mediumText('direccion');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('id_contacto')
               ->references('id')
