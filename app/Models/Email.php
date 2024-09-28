@@ -17,7 +17,7 @@ class Email extends Model
      */
     protected $fillable = [
         'id_contacto',
-        'numero'
+        'email'
     ];
 
     /**

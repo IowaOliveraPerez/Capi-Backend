@@ -17,8 +17,11 @@ class Contacto extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_contacto',
-        'numero'
+        'nombre',
+        'notas',
+        'fecha_cumpleaños',
+        'pagina_web',
+        'empresa'
     ];
 
     /**

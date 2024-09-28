@@ -17,7 +17,7 @@ class Direccion extends Model
      */
     protected $fillable = [
         'id_contacto',
-        'numero'
+        'direccion'
     ];
 
     /**
