@@ -21,6 +21,17 @@ git clone https://github.com/IowaOliveraPerez/Capi-Backend.git
    Se debe generar el .env a partir del archivo de ejemplo que se encuentra en el repositorio.
    Luego se debe modificar la conexion de la base de datos para que apunte a una base de datos vacía que esté en su servidor.
 
+    Este es un ejemplo de las modificaciones:
+
+    ````plaintext
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=laravel
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ````
+
 3. Instalar las dependencias
 
 ```bash
@@ -28,7 +39,7 @@ cd Capi-Backend
 composer install
 php artisan key:generate
 php artisan migrate:fresh --seed
-```
+````
 
 Esto generará y poblará la base de datos con 5000 registros de contactos y al menos 5000 registros en las demás tablas.
 

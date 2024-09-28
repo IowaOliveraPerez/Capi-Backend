@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Contacto;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -19,10 +20,12 @@ class ContactoService
         $this->direccionService = $direccionService;
     }
 
-    public function getAllContacts($request)
+    public function getAllContacts(Request $request)
     {
         $perPage = $request->input('page_size', 10);
         $filter = $request->input('filter', '');
+        $sortColumn = $request->input('sortColumn');
+        $sortDirection = $request->input('sortDirection');
         $filterWords = explode(' ', $filter);
         $query = Contacto::with(['telefonos', 'emails', 'direcciones']);
         $query->where(function ($q) use ($filterWords) {
@@ -44,6 +47,9 @@ class ContactoService
                 });
             }
         });
+        if($sortColumn && $sortDirection){
+            $contactos = $query->orderBy($sortColumn, $sortDirection);
+        }
         $contactos = $query->paginate($perPage);
 
         return [
