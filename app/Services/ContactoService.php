@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Contacto;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ContactoService
@@ -56,6 +57,7 @@ class ContactoService
 
     public function createContact(array $data)
     {
+        DB::beginTransaction();
         $contacto = Contacto::create([
             'nombre' => $data['nombre'],
             'notas' => $data['notas'],
@@ -67,13 +69,14 @@ class ContactoService
         $this->telefonoService->updateTelefonos($contacto, $data['telefonos'] ?? []);
         $this->emailService->updateEmails($contacto, $data['emails'] ?? []);
         $this->direccionService->updateDirecciones($contacto, $data['direcciones'] ?? []);
-
+        DB::commit();
         return $contacto;
     }
 
     public function updateContact(array $data, $id)
     {
         $contacto = Contacto::findOrFail($id);
+        DB::beginTransaction();
         $contacto->update([
             'nombre' => $data['nombre'],
             'notas' => $data['notas'],
@@ -85,7 +88,19 @@ class ContactoService
         $this->telefonoService->updateTelefonos($contacto, $data['telefonos'] ?? []);
         $this->emailService->updateEmails($contacto, $data['emails'] ?? []);
         $this->direccionService->updateDirecciones($contacto, $data['direcciones'] ?? []);
+        DB::commit();
+        return $contacto;
+    }
 
+    public function destroyContact($id)
+    {
+        $contacto = Contacto::findOrFail($id);
+        DB::beginTransaction();
+        $contacto->emails()->delete();
+        $contacto->direcciones()->delete();
+        $contacto->telefonos()->delete();
+        $contacto->delete();
+        DB::commit();
         return $contacto;
     }
 }

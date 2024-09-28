@@ -100,9 +100,7 @@ class ContactoController extends Controller
 
     public function destroy($id)
     {
-        $contacto = Contacto::findOrFail($id);
-        $contacto->delete();
-
+        $this->contactoService->destroyContact($id);
         return response([
             'data' => []
         ], 201);
